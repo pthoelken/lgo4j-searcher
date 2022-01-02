@@ -41,6 +41,13 @@ function CheckApplicationExists() {
     fi
 }
 
+function CheckApplication() {
+    if ! hash $1 2>/dev/null; then
+        EventError "Software $1 is not installed. Please be sure, that $1 is installed before running this script! Abort."
+        exit 1
+    fi
+}
+
 function WrapperCall() {
     sudo find / -xdev -type f | tee $strLogInFilePath | sudo java -jar $strJavaLog4JBinary --stdin --verbose 2>&1 | tee $strLogFilePath > /dev/null 2>&1
 }
@@ -105,11 +112,11 @@ function ParseResults() {
 }
 
 function ApplicationCheck() {
-    CheckApplicationExists "curl"
-    CheckApplicationExists "java"
-    CheckApplicationExists "sudo"
-    CheckApplicationExists "tee"
-    CheckApplicationExists "grep"
+    CheckApplication "curl"
+    CheckApplication "java"
+    CheckApplication "sudo"
+    CheckApplication "tee"
+    CheckApplication "grep"
 }
 
 
