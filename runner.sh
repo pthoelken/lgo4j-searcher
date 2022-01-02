@@ -49,7 +49,14 @@ function CheckApplication() {
 }
 
 function WrapperCall() {
+
+    if [ ! -f $strJavaLog4JBinary ]; then
+        EventError "Software $strJavaLog4JBinary not found! Please be sure, that curl download the latest version of it."
+        exit 1
+    fi
+    
     sudo find / -xdev -type f | tee $strLogInFilePath | sudo java -jar $strJavaLog4JBinary --stdin --verbose 2>&1 | tee $strLogFilePath > /dev/null 2>&1
+
 }
 
 function DownloadLatestJarFile() {
