@@ -1,2 +1,6 @@
-# lgo4j-searcher
-Runner and parser for Log4J jar and logs
+# Running on Linux / macOS (WIP / not tested)
+- Copy / Clone Repository
+- `sudo chmod +x runner.sh`
+- `sudo ./runner.sh`
+
+- Wait until the script is completely done.
