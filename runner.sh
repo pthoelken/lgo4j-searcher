@@ -105,11 +105,11 @@ function ParseResults() {
 }
 
 function ApplicationCheck() {
-    CheckApplicationExists java
-    CheckApplicationExists sudo
-    CheckApplicationExists tee
-    CheckApplicationExists grep
-    CheckApplicationExists curl
+    CheckApplicationExists "curl"
+    CheckApplicationExists "java"
+    CheckApplicationExists "sudo"
+    CheckApplicationExists "tee"
+    CheckApplicationExists "grep"
 }
 
 
