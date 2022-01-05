@@ -11,7 +11,7 @@ strLogInFilePath=$strLogDirectory/$strDate-in-scan.log
 strFinalResultLog=$strLogDirectory/$strDate-result-shrinked.log
 
 strJavaLog4JBinary=log4j-detector-latest.jar
-strJavaLog4JDownloadURL=https://github.com/mergebase/log4j-detector/raw/master/log4j-detector-latest.jar
+strJavaLog4JDownloadURL=https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-detector-2021.12.29.jar
 
 if [ ! -d $strLogDirectory ]; then
         mkdir -p $strLogDirectory
