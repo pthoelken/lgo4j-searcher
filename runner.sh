@@ -73,7 +73,7 @@ function ParseResults() {
         printf "\n---------------------------------------------------------------------------------------------------------------------------------"
 
         printf "\n\nHostname: $HOSTNAME" 
-        printf "\nUsername: $USERNAME" 
+        printf "\nUsername: $USER" 
         printf "\nDate: $strDate\n" 
 
         EventResultWarning "_VULNERABLE_"
