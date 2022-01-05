@@ -6,9 +6,13 @@ cd "$(dirname "$0")"
 strCur=$PWD
 strDate=$(date '+%d-%m-%Y_%H-%M-%S')
 strLogDirectory=~/log4j-log
+
+strUsername=$USER
+strHostname=$HOSTNAME
+
 strLogFilePath=$strLogDirectory/$strDate-result-full-scan.log
 strLogInFilePath=$strLogDirectory/$strDate-in-scan.log
-strFinalResultLog=$strLogDirectory/$strDate-result-shrinked.log
+strFinalResultLog=$strLogDirectory/$strDate-$strHostname-$strUsername-result-shrinked.log
 
 strJavaLog4JBinary=log4j-detector-latest.jar
 strJavaLog4JDownloadURL=https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-detector-2021.12.29.jar
@@ -72,8 +76,8 @@ function ParseResults() {
 
         printf "\n---------------------------------------------------------------------------------------------------------------------------------"
 
-        printf "\n\nHostname: $HOSTNAME" 
-        printf "\nUsername: $USER" 
+        printf "\n\nHostname: $strHostname" 
+        printf "\nUsername: $strUsername" 
         printf "\nDate: $strDate\n" 
 
         EventResultWarning "_VULNERABLE_"
