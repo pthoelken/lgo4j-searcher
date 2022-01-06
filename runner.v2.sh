@@ -115,7 +115,6 @@ function mainCall() {
     ApplicationCheck
     DownloadJava
     DownloadLatestDetector
-    CheckApplication "java"
 
     printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ..."
     Scanning
