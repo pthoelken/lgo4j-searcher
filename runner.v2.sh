@@ -32,7 +32,7 @@ function CheckApplication() {
 }
 
 function initApplication() {
-    if [ -d $strLogDirectory ]
+    if [ -d $strLogDirectory ]; then
         sudo rm -rf $strLogDirectory
         mkdir -p $strLogDirectory
     else
