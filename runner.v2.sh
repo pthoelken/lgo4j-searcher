@@ -90,7 +90,7 @@ function Scanning() {
         *" _OLD_");;                            # HIDE (for the moment)
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
-    done < <(sudo find "${find_opt[@]}" > /dev/null 2>&1 | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed > /dev/null 2>&1 || true)
+    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed > /dev/null 2>&1 || true) > /dev/null 2>&1
 }
 
 function ParseLogs() {
