@@ -99,7 +99,6 @@ function ParseLogsCall() {
     ParseLogs "_VULNERABLE_"
     ParseLogs "_OLD_"
     ParseLogs "_POTENTIALLY_SAFE_"
-    ParseLogs "-- Congratulations, the supplied paths are not vulnerable to CVE-2021-44228 or CVE-2021-45046 !  :-)"
     printf "\n\n=== LOG4J DETECTOR PARSED LOG ENDING ===\n\n" >> $strLogParsed
 }
 
