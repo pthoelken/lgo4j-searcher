@@ -54,7 +54,6 @@ function DownloadJava() {
     objJava=$(sudo find . -name java -type f -executable| head -1)
 }
 
-
 function DownloadLatestDetector() {
     echo -n "* Downloading: log4j-detector latest version ... "
     wget -q "$objDetector" && echo OK
@@ -68,8 +67,6 @@ function Scanning() {
     -not -path  \*/.m2/repo/\*
     -type f -print
     )
-
-    
 
     warn=()
     while read line; do
@@ -88,6 +85,7 @@ function Scanning() {
         *" _OLD_");;                            # HIDE (for the moment)
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
+
     done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true)
 }
 
@@ -97,13 +95,10 @@ function ParseLogs() {
 }
 
 function ParseLogsCall() {
-
     printf "--- LOG4J DETECTOR PARSED LOG WITH VULNERABILITIES AND UNSAFES AND OLDS ONLY ---\n\nScan Date: $strDate\nHostname: $HOSTNAME\nUsername: $USER\n\n--- LOG4J DETECTOR PARSED LOG RESULTS BELOW ---\n\n" | tee -a $strLogParsed > /dev/null 2>&1
-
     ParseLogs "_VULNERABLE_"
     ParseLogs "_OLD_"
     ParseLogs "_POTENTIALLY_SAFE_"
-
     printf "\n\n--- LOG4J DETECTOR PARSED LOG ENDING YOU CAN FIND YOUR LOG AT $strLogParsed ---\n\n"
 }
 
