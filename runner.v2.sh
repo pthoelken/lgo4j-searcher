@@ -11,7 +11,6 @@ strLogUnparsed=$strLogDirectory/log4j-$strDate-$HOSTNAME-$USER-unparsed.log
 strLogParsed=$strLogDirectory/log4j-$strDate-$HOSTNAME-$USER-parsed.log
 
 objDetector="https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-detector-2021.12.29.jar"
-objJava=$(find . -name java -type f -executable| head -1)
 
 cd "$strTempDir"
 
@@ -27,7 +26,7 @@ fi
 
 function CheckApplication() {
     if ! hash $1 2>/dev/null; then
-        EventError "Software $1 is not installed. Please be sure, that $1 is installed before running this script! Abort."
+        echo "* Error: Software $1 is not installed. Please be sure, that $1 is installed before running this script! Abort."
         exit 1
     fi
 }
@@ -45,6 +44,8 @@ function DownloadJava() {
     echo -n "* Downloading: jre ... "
     wget -qO - "$jre" | tar xzf - && echo OK
 }
+
+objJava=$(find . -name java -type f -executable| head -1)
 
 function DownloadLatestDetector() {
     echo -n "* Downloading: log4j-detector latest version ... "
