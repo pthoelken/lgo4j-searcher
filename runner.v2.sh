@@ -43,9 +43,9 @@ function DownloadJava() {
 
     echo -n "* Downloading: jre ... "
     wget -qO - "$jre" | tar xzf - && echo OK
+    objJava=$(find . -name java -type f -executable| head -1)
 }
 
-objJava=$(find . -name java -type f -executable| head -1)
 
 function DownloadLatestDetector() {
     echo -n "* Downloading: log4j-detector latest version ... "
