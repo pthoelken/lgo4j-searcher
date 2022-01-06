@@ -31,6 +31,15 @@ function CheckApplication() {
     fi
 }
 
+function initApplication() {
+    if [ -d $strLogDirectory ]
+        sudo rm -rf $strLogDirectory
+        mkdir -p $strLogDirectory
+    else
+        mkdir -p $strLogDirectory
+    fi
+}
+
 function DownloadJava() {
     m="$(dpkg --print-architecture 2>/dev/null || uname -m)"
     case "$m" in
@@ -104,6 +113,7 @@ function ApplicationCheck() {
 }
 
 function mainCall() {
+    initApplication
     ApplicationCheck
     DownloadJava
     DownloadLatestDetector
@@ -113,7 +123,8 @@ function mainCall() {
 }
 
 function Dispose() {
-    rm -rf $strLogUnparsed && echo OK
+    rm -rf $strLogUnparsed 
+    echo "* Removing: Unparsed log files ..." && echo OK
 }
 
 mainCall
