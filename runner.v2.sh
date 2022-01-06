@@ -86,7 +86,7 @@ function Scanning() {
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
 
-    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true)
+    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true) > /dev/null 2>&1
 }
 
 function ParseLogs() {
@@ -118,7 +118,7 @@ function mainCall() {
     CheckApplication "java"
 
     printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ..."
-    Scanning > /dev/null 2>&1
+    Scanning
 
     ParseLogsCall
 }
