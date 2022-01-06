@@ -87,7 +87,6 @@ function Scanning() {
 function ParseLogs() {
     echo "* Processing: Parse log for $1 output ..."
     cat $strLogUnparsed | grep -i $1 | tee -a $strLogParsed > /dev/null 2>&1
-    rm -rf $strLogUnparsed && echo OK
 }
 
 function ParseLogsCall() {
@@ -101,6 +100,7 @@ function ApplicationCheck() {
     CheckApplication "tee"
     CheckApplication "grep"
     CheckApplication "wget"
+    CheckApplication "cat"
 }
 
 function mainCall() {
@@ -112,5 +112,10 @@ function mainCall() {
     ParseLogsCall
 }
 
+function Dispose() {
+    rm -rf $strLogUnparsed && echo OK
+}
+
 mainCall
+Dispose
 exit 0
