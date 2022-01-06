@@ -20,10 +20,6 @@ cleaner() {
 }
 trap cleaner INT TERM EXIT
 
-if [ ! -d $strLogDirectory ]; then
-    mkdir -p $strLogDirectory
-fi
-
 function CheckApplication() {
     if ! hash $1 2>/dev/null; then
         echo "* Error: Software $1 is not installed. Please be sure, that $1 is installed before running this script! Abort."
@@ -32,12 +28,13 @@ function CheckApplication() {
 }
 
 function initApplication() {
-    if [ -d $strLogDirectory ]; then
-        sudo rm -rf $strLogDirectory
+    if [ ! -d $strLogDirectory ]; then
         mkdir -p $strLogDirectory
     else
         mkdir -p $strLogDirectory
     fi
+
+    rm -rf $strLogDirectory/* 2>/dev/null
 }
 
 function DownloadJava() {
@@ -49,6 +46,9 @@ function DownloadJava() {
         i?86)  jre="https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jre11.0.13-linux_i686.tar.gz" ;; # 32 Bit
         *)     echo "ERROR: No java for $m" 2>&1; exit 1
     esac
+
+    # macOS 64 Bit: https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-macosx_x64.tar.gz
+    # macOS ARM: https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-macosx_aarch64.tar.gz
 
     echo -n "* Downloading: jre ... "
     wget -qO - "$jre" | tar xzf - && echo OK
@@ -90,7 +90,7 @@ function Scanning() {
         *" _OLD_");;                            # HIDE (for the moment)
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
-    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed > /dev/null 2>&1 || true)
+    done < <(sudo find "${find_opt[@]}" > /dev/null 2>&1 | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed > /dev/null 2>&1 || true)
 }
 
 function ParseLogs() {
