@@ -122,7 +122,7 @@ function mainCall() {
     DownloadLatestDetector
     CheckApplication "java"
 
-    printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ..." && echo OK
+    printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ..."
     Scanning > /dev/null 2>&1
 
     ParseLogsCall
