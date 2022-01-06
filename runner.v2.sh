@@ -43,7 +43,8 @@ function DownloadJava() {
 
     echo -n "* Downloading: jre ... "
     wget -qO - "$jre" | tar xzf - && echo OK
-    objJava=$(find . -name java -type f -executable| head -1)
+
+    objJava=$(sudo find . -name java -type f -executable| head -1)
 }
 
 
@@ -51,11 +52,6 @@ function DownloadLatestDetector() {
     echo -n "* Downloading: log4j-detector latest version ... "
     wget -q "$objDetector" && echo OK
 }
-
-# if [ -z "$objJava" ]; then
-#     echo "* Error: Java not found" >&2
-#     exit 1
-# fi
 
 function Scanning() {
     find_opt=(
@@ -85,7 +81,7 @@ function Scanning() {
         *" _OLD_");;                            # HIDE (for the moment)
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
-    done < <(find "${find_opt[@]}" | "$objJava" -jar ${objDetector##*/} --stdin 2>&1 || true)
+    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin 2>&1 || true)
 }
 
 function ParseLogs() {
@@ -111,6 +107,7 @@ function mainCall() {
     ApplicationCheck
     DownloadJava
     DownloadLatestDetector
+    CheckApplication "java"
     Scanning | tee -a $strLogUnparsed
     ParseLogsCall
 }
