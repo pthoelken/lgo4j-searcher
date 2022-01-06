@@ -81,7 +81,7 @@ function Scanning() {
         *" _OLD_");;                            # HIDE (for the moment)
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
-    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin 2>&1 || true)
+    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true)
 }
 
 function ParseLogs() {
@@ -108,7 +108,7 @@ function mainCall() {
     DownloadJava
     DownloadLatestDetector
     CheckApplication "java"
-    Scanning | tee -a $strLogUnparsed
+    Scanning
     ParseLogsCall
 }
 
