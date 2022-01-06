@@ -52,10 +52,10 @@ function DownloadLatestDetector() {
     wget -q "$objDetector" && echo OK
 }
 
-if [ -z "$objJava" ]; then
-    echo "* Error: Java not found" >&2
-    exit 1
-fi
+# if [ -z "$objJava" ]; then
+#     echo "* Error: Java not found" >&2
+#     exit 1
+# fi
 
 function Scanning() {
     find_opt=(
