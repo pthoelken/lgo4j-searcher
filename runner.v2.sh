@@ -90,7 +90,7 @@ function Scanning() {
         *" _OLD_");;                            # HIDE (for the moment)
         *) echo "  - $line" ;;                  # SHOW (the rest)
         esac
-    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true)
+    done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin > /dev/null 2>&1 | tee -a $strLogUnparsed || true)
 }
 
 function ParseLogs() {
@@ -99,6 +99,9 @@ function ParseLogs() {
 }
 
 function ParseLogsCall() {
+
+    printf "--- LOG4J DETECTOR PARSED LOG WITH VULNERABILITIES AND UNSAFES AND OLDS ONLY ---\n\nScan Date: $strDate\nHostname: $HOSTNAME\nUsername: $USER\n\n--- LOG4J DETECTOR PARSED LOG RESULTS BELOW ---\n\n" | tee -a $strLogParsed > /dev/null 2>&1
+
     ParseLogs "_VULNERABLE_"
     ParseLogs "_OLD_"
     ParseLogs "_POTENTIALLY_SAFE_"
