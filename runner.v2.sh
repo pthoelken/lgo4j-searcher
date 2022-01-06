@@ -71,7 +71,7 @@ function Scanning() {
     -type f -print
     )
 
-    echo "* Scanning using $objJava and ${objDetector##*/}:"
+    
 
     warn=()
     while read line; do
@@ -105,6 +105,8 @@ function ParseLogsCall() {
     ParseLogs "_VULNERABLE_"
     ParseLogs "_OLD_"
     ParseLogs "_POTENTIALLY_SAFE_"
+
+    printf "\n\n--- LOG4J DETECTOR PARSED LOG ENDING YOU CAN FIND YOUR LOG AT $strLogParsed ---\n\n"
 }
 
 function ApplicationCheck() {
@@ -121,7 +123,10 @@ function mainCall() {
     DownloadJava
     DownloadLatestDetector
     CheckApplication "java"
+
+    echo "* Scanning: With $objJava, ${objDetector##*/} and log file $strLogUnparsed ..."
     Scanning > /dev/null 2>&1
+
     ParseLogsCall
 }
 
