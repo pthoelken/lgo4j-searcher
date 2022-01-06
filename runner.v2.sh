@@ -30,8 +30,6 @@ function CheckApplication() {
 function initApplication() {
     if [ ! -d $strLogDirectory ]; then
         mkdir -p $strLogDirectory
-    else
-        mkdir -p $strLogDirectory
     fi
 
     rm -rf $strLogDirectory/* 2>/dev/null
@@ -124,14 +122,15 @@ function mainCall() {
     DownloadLatestDetector
     CheckApplication "java"
 
-    echo "* Scanning: With $objJava, ${objDetector##*/} and log file $strLogUnparsed ..."
+    printf "\n* Scanning: \nBinary: $objJava\nDetector: ${objDetector##*/}\nLog File: $strLogUnparsed\nState: in progress ..."
     Scanning > /dev/null 2>&1
 
     ParseLogsCall
 }
 
 function Dispose() {
-    rm -rf $strLogUnparsed 
+    rm -rf $strLogUnparsed
+    sudo chown $USER:$USER -R $strLogDirectory
     echo "* Removing: Unparsed log files ..." && echo OK
 }
 
