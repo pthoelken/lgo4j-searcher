@@ -15,8 +15,8 @@ objDetector="https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-de
 cd "$strTempDir"
 
 cleaner() {
-    echo "* Removing: $strTempDir ..."
-    rm -rf "${strTempDir:-does-not-exist}"
+    echo -e "* Removing: $strTempDir ... "
+    rm -rf "${strTempDir:-does-not-exist}" && echo OK
 }
 trap cleaner INT TERM EXIT
 
@@ -123,14 +123,14 @@ function mainCall() {
     DownloadJava
     DownloadLatestDetector
 
-    printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ..."
+    printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ...\n\n"
     Scanning
 
     ParseLogsCall
 }
 
 function Dispose() {
-    echo -n "* Removing: Unparsed log files and log folders ..."
+    echo -n "* Removing: Unparsed log files and log folders ... "
     sudo chown $USER:$USER -R $strLogDirectory && echo OK
 
     if [ ! -d $strLogParsed ]; then
