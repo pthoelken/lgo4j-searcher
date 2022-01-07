@@ -15,7 +15,7 @@ objDetector="https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-de
 cd "$strTempDir"
 
 cleaner() {
-    echo "* Removing: $strTempDir"
+    echo "* Removing: $strTempDir ..."
     rm -rf "${strTempDir:-does-not-exist}"
 }
 trap cleaner INT TERM EXIT
