@@ -72,13 +72,13 @@ function Scanning() {
     while read line; do
 
         case "$line" in
-        "-- Problem"*" encrypted "*) ;;         # HIDE
-        "-- Problem"*".zip.ZipException"*) ;;   # HIDE
-        "-- Problem"*".io.EOFException"*) ;;    # HIDE
-        "-- Problem"*"no magic number"*) ;;     # HIDE
-        "-- Problem"*"not find ZIP magic"*);;   # HIDE
-        "-- Problem"*"malformed") ;;            # HIDE
-        "-- Problem"*"invalid distance"*) ;;    # HIDE
+        # "-- Problem"*" encrypted "*) ;;         # HIDE
+        # "-- Problem"*".zip.ZipException"*) ;;   # HIDE
+        # "-- Problem"*".io.EOFException"*) ;;    # HIDE
+        # "-- Problem"*"no magic number"*) ;;     # HIDE
+        # "-- Problem"*"not find ZIP magic"*);;   # HIDE
+        # "-- Problem"*"malformed") ;;            # HIDE
+        # "-- Problem"*"invalid distance"*) ;;    # HIDE
         "-- Problem"*) echo "  ${line#-}";;     # SHOW (unknown problems)
         "-- "*);;                               # HIDE
         *" _POTENTIALLY_SAFE_"*);;              # HIDE
