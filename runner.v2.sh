@@ -87,6 +87,8 @@ function Scanning() {
         esac
 
     done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true) > /dev/null 2>&1
+
+    printf "\n\n"
 }
 
 function ParseLogs() {
