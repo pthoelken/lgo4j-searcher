@@ -129,8 +129,14 @@ function mainCall() {
 
 function Dispose() {
     echo "* Removing: Unparsed log files ..."
-    rm -rf $strLogUnparsed
     sudo chown $USER:$USER -R $strLogDirectory && echo OK
+
+    if [ ! -d $strLogParsed ]; then
+        rm -rf $strLogDirectory
+    else
+        rm -rf $strLogUnparsed
+    fi
+
 }
 
 mainCall
