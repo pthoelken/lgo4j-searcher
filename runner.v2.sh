@@ -15,7 +15,7 @@ objDetector="https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-de
 cd "$strTempDir"
 
 cleaner() {
-    echo "* Removing $strTempDir"
+    echo "* Removing: $strTempDir"
     rm -rf "${strTempDir:-does-not-exist}"
 }
 trap cleaner INT TERM EXIT
@@ -128,8 +128,8 @@ function mainCall() {
 }
 
 function Dispose() {
-    echo "* Removing: Unparsed log files ..."
-    sudo chown $USER:$USER -R $strLogDirectory && echo OK
+    echo "* Removing: Unparsed log files and log folders ..."
+    sudo chown $USER:$USER -R $strLogDirectory
 
     if [ ! -d $strLogParsed ]; then
         rm -rf $strLogDirectory
