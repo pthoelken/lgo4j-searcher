@@ -90,12 +90,12 @@ function Scanning() {
 }
 
 function ParseLogs() {
+    echo "this is _OLD_" >> $strLogUnparsed
     echo "* Processing: Parse log for $1 output ..."
     cat $strLogUnparsed | grep -i $1 | tee -a $strLogParsed > /dev/null 2>&1
 }
 
 function ParseLogsCall() {
-
     if (grep -i "_VULNERABLE_" $strLogUnparsed || grep -i "_OLD_" $strLogUnparsed || grep -i "_POTENTIALLY_SAFE_" $strLogUnparsed ); then
         printf "\n\n=== LOG4J DETECTOR PARSED LOG WITH VULNERABILITIES AND UNSAFES AND OLDS ONLY ===\n\nScan Date: $strDate\nHostname: $HOSTNAME\nUsername: $USER\n\n=== LOG4J DETECTOR PARSED LOG RESULTS BELOW ===\n\n" >> $strLogParsed
         ParseLogs "_VULNERABLE_"
