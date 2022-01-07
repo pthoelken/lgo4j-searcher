@@ -87,10 +87,12 @@ function Scanning() {
         esac
 
     done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true) > /dev/null 2>&1
+
+    echo "this is _OLD_" | tee -a $strLogUnparsed
+
 }
 
 function ParseLogs() {
-    echo "this is _OLD_" >> $strLogUnparsed
     echo "* Processing: Parse log for $1 output ..."
     cat $strLogUnparsed | grep -i $1 | tee -a $strLogParsed > /dev/null 2>&1
 }
