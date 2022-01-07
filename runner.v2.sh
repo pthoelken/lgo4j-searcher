@@ -95,11 +95,16 @@ function ParseLogs() {
 }
 
 function ParseLogsCall() {
-    printf "\n\n=== LOG4J DETECTOR PARSED LOG WITH VULNERABILITIES AND UNSAFES AND OLDS ONLY ===\n\nScan Date: $strDate\nHostname: $HOSTNAME\nUsername: $USER\n\n=== LOG4J DETECTOR PARSED LOG RESULTS BELOW ===\n\n" >> $strLogParsed
-    ParseLogs "_VULNERABLE_"
-    ParseLogs "_OLD_"
-    ParseLogs "_POTENTIALLY_SAFE_"
-    printf "\n\n=== LOG4J DETECTOR PARSED LOG ENDING ===\n\n" >> $strLogParsed
+
+    if (grep -i "_VULNERABLE_" $strLogUnparsed || grep -i "_OLD_" $strLogUnparsed || grep -i "_POTENTIALLY_SAFE_" $strLogUnparsed ); then
+        printf "\n\n=== LOG4J DETECTOR PARSED LOG WITH VULNERABILITIES AND UNSAFES AND OLDS ONLY ===\n\nScan Date: $strDate\nHostname: $HOSTNAME\nUsername: $USER\n\n=== LOG4J DETECTOR PARSED LOG RESULTS BELOW ===\n\n" >> $strLogParsed
+        ParseLogs "_VULNERABLE_"
+        ParseLogs "_OLD_"
+        ParseLogs "_POTENTIALLY_SAFE_"
+        printf "\n\n=== LOG4J DETECTOR PARSED LOG ENDING ===\n\n" >> $strLogParsed
+    else
+        echo "* Result: No vulnerabilities are found in $1. Nothing to parse, nothing to do at your side! :)"
+    fi
 }
 
 function ApplicationCheck() {
