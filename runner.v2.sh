@@ -103,7 +103,7 @@ function ParseLogsCall() {
         printf "\n\n=== LOG4J DETECTOR PARSED LOG ENDING ===\n\n" >> $strLogParsed
         printf "* Result: Warning! You can find the final log file here: $strLogParsed\n"
     else
-        echo "* Result: No vulnerabilities are found in $1. Nothing to parse, nothing to do at your side! :)"
+        echo "* Result: No vulnerabilities are found in $strLogUnparsed. Nothing to parse, nothing to do at your side! :)"
     fi
 }
 
