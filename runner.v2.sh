@@ -71,7 +71,7 @@ function Scanning() {
     warn=()
     while read line; do
 
-        # case "$line" in
+        case "$line" in
         # "-- Problem"*" encrypted "*) ;;         # HIDE
         # "-- Problem"*".zip.ZipException"*) ;;   # HIDE
         # "-- Problem"*".io.EOFException"*) ;;    # HIDE
@@ -84,7 +84,7 @@ function Scanning() {
         # *" _POTENTIALLY_SAFE_"*);;              # HIDE
         # *" _OLD_");;                            # HIDE (for the moment)
         # *) echo "  - $line" ;;                  # SHOW (the rest)
-        # esac
+        esac
 
     done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true) > /dev/null 2>&1
 
