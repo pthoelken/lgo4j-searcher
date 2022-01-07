@@ -16,7 +16,7 @@ cd "$strTempDir"
 
 cleaner() {
     echo -e "* Removing: $strTempDir ... "
-    rm -rf "${strTempDir:-does-not-exist}" && echo OK
+    rm -rf "${strTempDir:-does-not-exist}"
 }
 trap cleaner INT TERM EXIT
 
