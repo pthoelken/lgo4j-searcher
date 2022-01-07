@@ -3,7 +3,6 @@
 # Original from @becker-rzht
 # Edited from @pthoelken
 
-
 strTempDir=$(mktemp -d)
 strDate=$(date '+%d-%m-%Y_%H-%M-%S')
 strLogDirectory=~/log4j-log
@@ -11,6 +10,12 @@ strLogUnparsed=$strLogDirectory/log4j-$strDate-$HOSTNAME-$USER-unparsed.log
 strLogParsed=$strLogDirectory/log4j-$strDate-$HOSTNAME-$USER-parsed.log
 
 objDetector="https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-detector-2021.12.29.jar"
+objDetectorBinary=log4j-detector-2021.12.29.jar
+
+function CopyLatestDetector() {
+    echo -n "* Copy: log4j-detector latest version ... "
+    cp $objDetectorBinary $strTempDir && echo OK
+}
 
 cd "$strTempDir"
 
@@ -42,14 +47,25 @@ function DownloadJava() {
         armhf) jre="https://cdn.azul.com/zulu-embedded/bin/zulu11.52.13-ca-jdk11.0.13-linux_aarch32hf.tar.gz" ;; # RPI
         *64)   jre="https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jre11.0.13-linux_x64.tar.gz" ;; # 64 Bit
         i?86)  jre="https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jre11.0.13-linux_i686.tar.gz" ;; # 32 Bit
-        *)     echo "ERROR: No java for $m" 2>&1; exit 1
+        *)     echo "* ERROR: No Java binary tarball found for $m" 2>&1; exit 1
     esac
-
-    # macOS 64 Bit: https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-macosx_x64.tar.gz
-    # macOS ARM: https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-macosx_aarch64.tar.gz
 
     echo -n "* Downloading: jre ... "
     wget -qO - "$jre" | tar xzf - && echo OK
+
+    objJava=$(sudo find . -name java -type f -executable| head -1)
+}
+
+function ExtractMacJava() {
+
+    if [[ `uname -m` == 'arm64' ]]; then
+        jre="https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-macosx_aarch64.tar.gz"
+    else
+        jre="https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-macosx_x64.tar.gz"
+    fi
+
+    echo -n "* Extracting: jre ... "
+    tar xzf $jre && echo OK
 
     objJava=$(sudo find . -name java -type f -executable| head -1)
 }
@@ -117,18 +133,6 @@ function ApplicationCheck() {
     CheckApplication "cat"
 }
 
-function mainCall() {
-    initApplication
-    ApplicationCheck
-    DownloadJava
-    DownloadLatestDetector
-
-    printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ...\n\n"
-    Scanning
-
-    ParseLogsCall
-}
-
 function Dispose() {
     echo -n "* Removing: Unparsed log files and log folders ... "
     sudo chown $USER:$USER -R $strLogDirectory && echo OK
@@ -141,6 +145,27 @@ function Dispose() {
 
 }
 
-mainCall
+initApplication
+ApplicationCheck
+
+case "$1" in 
+    "--offline")
+        ExtractMacJava
+        CopyLatestDetector
+        ;;
+    "--online")
+        DownloadJava
+        DownloadLatestDetector
+        ;;
+    *)
+        echo -e "Unkown Command - $0 { --online | --offline } - Online: download online the correct version. Offline: extract the macOS versions of jre. "
+        exit 1
+        ;;
+esac
+
+printf "\n+++ Scanning is starting with ...\n* Binary: $objJava\n* Detector: ${objDetector##*/}\n* Log File: $strLogUnparsed\n* State: in progress ...\n\n"
+Scanning
+ParseLogsCall
 Dispose
+
 exit 0
