@@ -118,7 +118,7 @@ function ParseLogsCall() {
         ParseLogs "_VULNERABLE_"
         ParseLogs "_OLD_"
         ParseLogs "_POTENTIALLY_SAFE_"
-        printf "\n\n=== LOG4J DETECTOR PARSED LOG ENDING ===\n\n" >> $strLogParsed
+        printf "\n=== LOG4J DETECTOR PARSED LOG ENDING ===\n\n" >> $strLogParsed
         printf "* Result: Warning! You can find the final log file here: $strLogParsed\n"
     else
         echo "* Result: No vulnerabilities are found in $strLogUnparsed. Nothing to parse, nothing to do at your side! :)"
