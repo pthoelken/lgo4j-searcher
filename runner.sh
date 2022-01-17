@@ -137,9 +137,7 @@ function Dispose() {
     echo -n "* Removing: Unparsed log files and log folders ... "
     sudo chown $USER:$USER -R $strLogDirectory && echo OK
 
-    if [ ! -d $strLogParsed ]; then
-        rm -rf $strLogDirectory
-    else
+    if [ -f $strLogUnparsed ]; then
         rm -rf $strLogUnparsed
     fi
 
