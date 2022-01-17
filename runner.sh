@@ -104,7 +104,7 @@ function Scanning() {
 
     done < <(sudo find "${find_opt[@]}" | sudo "$objJava" -jar ${objDetector##*/} --stdin | tee -a $strLogUnparsed || true) > /dev/null 2>&1
 
-    printf "\n\n"
+    printf "\n"
 }
 
 function ParseLogs() {
@@ -113,6 +113,7 @@ function ParseLogs() {
 }
 
 function ParseLogsCall() {
+    echo ""
     if (grep -i "_VULNERABLE_" $strLogUnparsed || grep -i "_OLD_" $strLogUnparsed || grep -i "_POTENTIALLY_SAFE_" $strLogUnparsed ); then
         printf "\n=== LOG4J DETECTOR PARSED LOG WITH VULNERABILITIES AND UNSAFES AND OLDS ONLY ===\n\nScan Date: $strDate\nHostname: $HOSTNAME\nUsername: $USER\n\n=== LOG4J DETECTOR PARSED LOG RESULTS BELOW ===\n\n" >> $strLogParsed
         ParseLogs "_VULNERABLE_"
