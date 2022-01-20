@@ -1,7 +1,7 @@
 # Running on Linux / macOS (currently not tested)
 - Copy / Clone Repository
-- sudo chmod +x runner.v2.sh
-- sudo ./runner.v2.sh
+- sudo chmod +x runner.sh
+- sudo ./runner.sh --online
 
 # Log output
 The Script will parse the log output and give you the true findings only. The log direction is ~/log4j-log/
