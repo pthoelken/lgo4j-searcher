@@ -9,7 +9,7 @@ strLogDirectory=~/log4j-log
 strLogUnparsed=$strLogDirectory/log4j-$strDate-$HOSTNAME-$USER-unparsed.log
 strLogParsed=$strLogDirectory/log4j-$strDate-$HOSTNAME-$USER-parsed.log
 
-objDetector="https://github.com/beckerr-rzht/log4j-detector/raw/release/log4j-detector-2021.12.29.jar"
+objDetector="https://github.com/pthoelken/log4j-detector/blob/master/log4j-detector-2021.12.29.jar"
 objDetectorBinary=log4j-detector-2021.12.29.jar
 
 function CopyLatestDetector() {
